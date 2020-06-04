@@ -51,19 +51,19 @@ def record_frame(destination):
     src_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
     src_fps = video.get(cv2.CAP_PROP_FPS)
     dest_video = cv2.VideoWriter(
-        destination, _FourCC, 24, (src_width, src_height)
+        destination, _FourCC, src_fps, (src_width, src_height)
     )
 
     while is_record:
-        print(frame)
-        dest_video.write(frame.astype('uint8'))
+        # print(frame)
+        dest_video.write(frame)
 
     dest_video.release()
 
 
 # class A:
-#     rtsp = ''
-#     dest = ''
+    # rtsp = 'rtsp://3.kizuna.vn:3555/user=rtsp_password=rtsp_channel=1_stream=0.sdp?real_stream'
+    # dest = 'C:\\Projects\\Zet\\SomeCrapCode\\Video'
 
 
 if __name__ == '__main__':
@@ -71,6 +71,7 @@ if __name__ == '__main__':
     video = cv2.VideoCapture(args.rtsp)
     print(f'VideoSource [{args.rtsp}] connect successfully!')
     dest = args.dest
+    print(dest)
     print(f'VideoSource [{args.rtsp}] begin getting frame!')
     Thread(target=loop_get_frame).start()
     time.sleep(5)

@@ -19,17 +19,30 @@ text.grid(columnspan=2, sticky="ew")
 
 
 def encrypt():
-    key = bytes(txtKey.get(), "utf-8")
-    b_str = bytes(txtString.get(), "utf-8")
-    f = Fernet(key)
-    text.insert(END, bytes.decode(f.encrypt(b_str), "utf-8"))
+    try:
+        if txtString.get() is None or txtString.get() == '':
+            text.replace(1.0, END, '')
+            return
+        key = bytes(txtKey.get(), "utf-8")
+        b_str = bytes(txtString.get(), "utf-8")
+        f = Fernet(key)
+        text.replace(1.0, END, bytes.decode(f.encrypt(b_str), "utf-8"))
+    except Exception as exc:
+        print(f'Encryption is failed: {exc}')
+        text.replace(1.0, END, '')
 
 
 def decrypt():
-    key = bytes(txtKey.get(), "utf-8")
-    b_str = bytes(txtString.get(), "utf-8")
-    f = Fernet(key)
-    text.insert(END, bytes.decode(f.decrypt(b_str), "utf-8"))
+    try:
+        key = bytes(txtKey.get(), "utf-8")
+        b_str = bytes(txtString.get(), "utf-8")
+        f = Fernet(key)
+        text.replace(1.0, END, bytes.decode(f.decrypt(b_str), "utf-8"))
+    except Exception as exc:
+        if exc.__class__.__name__ == 'InvalidToken':
+            exc = 'Invalid input string!'
+        print(f'Decryption is failed: {exc}')
+        text.replace(1.0, END, '')
 
 
 button_frame = Frame(window)
