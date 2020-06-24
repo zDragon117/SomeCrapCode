@@ -10,6 +10,7 @@ FEStatic/statics/
 .idea/
 FireNet/
 user_resources/
+Django/venv/
 
 ### Django ###
 *.log
