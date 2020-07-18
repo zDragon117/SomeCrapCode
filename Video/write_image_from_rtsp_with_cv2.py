@@ -48,7 +48,7 @@ def loop_get_frame(destination):
 
 
 class A:
-    rtsp = ''
+    rtsp = 'rtsp://3.kizuna.vn:3556/user=rtsp2_password=admin123_channel=1_stream=0.sdp?real_stream'
     dest = 'images'
 
 

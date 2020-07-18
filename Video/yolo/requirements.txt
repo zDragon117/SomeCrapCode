@@ -1,0 +1,5 @@
+opencv-python==3.4.9.33
+imutils
+gluoncv
+mxnet
+mxnet-cu100
