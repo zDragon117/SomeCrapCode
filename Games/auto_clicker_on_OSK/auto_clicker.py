@@ -4,11 +4,13 @@ import os
 import sys
 import threading
 
-from pynput.keyboard import Listener, Key
+from pynput.keyboard import Listener, Key, KeyCode
+
+# pyautogui.useImageNotFoundException()  # call this if you want locateCenterOnScreen throw ImageNotFoundException when it couldn't find image
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 start_stop_key = Key.f3
-exit_key = Key.f4
+exit_key = KeyCode(char='q')
 
 # try:
 #     while True:
@@ -26,9 +28,19 @@ class ClickMouse(threading.Thread):
         self.delay = delay
         self.running = False
         self.program_running = True
-        self.key_position = pyautogui.locateCenterOnScreen(os.path.join(BASE_DIR, 'assets', 'OSK_{0}.png'.format(button)), grayscale=True)
+        self.button = button
+        self.key_position = None
+        # try:
+        # self.key_position = pyautogui.locateCenterOnScreen(os.path.join(BASE_DIR, 'assets', 'OSK_{0}.png'.format(button)))
+        # print('key_position', self.key_position)
+        # except pyautogui.ImageNotFoundException:
+        #     print('error')
 
     def start_clicking(self):
+        self.key_position = pyautogui.locateCenterOnScreen(
+            os.path.join(BASE_DIR, 'assets', 'window_mode_800x300', 'OSK_{0}.png'.format(self.button)), grayscale=True
+        )
+        print('key_position', self.key_position)
         self.running = True
 
     def stop_clicking(self):
@@ -40,8 +52,9 @@ class ClickMouse(threading.Thread):
 
     def run(self):
         while self.program_running:
-            while self.running:
+            while self.running and self.key_position is not None:
                 pyautogui.mouseDown(self.key_position)
+                # pyautogui.click(self.key_position)
                 time.sleep(self.delay)
             time.sleep(1)
 
