@@ -8,7 +8,7 @@ class vs:
         self.stt_lock = RLock()
 
     def start(self):
-        check_url = check()
+        check_url = check(self.stream_url)
         if check_url:
             with self.stt_lock:
                 Thread(target=self._run).start()

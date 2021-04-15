@@ -19,26 +19,26 @@ args = my_parser.parse_args()
 def run(timeout=30):
     timer(timeout)
     while True and not over():
-        #Do something
-        print ("start looping")
-    print ('Exited run function.')
+        # Do something
+        print("Start looping")
+    print('Exited run function.')
 
 
 def timer(time):
-    t = Timer(time, setOver)
-    print ("timer started")
+    t = Timer(time, set_over)
+    print("Timer started")
     t.start()
 
 
-def setOver():
+def set_over():
     global globalIsOver
-    print ('\nSetting globalIsOver = True')
+    print('\nSetting globalIsOver = True')
     globalIsOver = True
 
 
 def over():
     global globalIsOver
-    print ('returned = ' + str(globalIsOver))
+    print('returned = ' + str(globalIsOver))
     return globalIsOver
 
 
