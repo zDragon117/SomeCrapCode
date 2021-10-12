@@ -1,4 +1,4 @@
-opencv-python==3.4.9.33
+opencv-python==4.2.0.32
 imutils
 gluoncv
 mxnet
